@@ -1,0 +1,36 @@
+﻿<Page xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
+      xmlns:core="using:Microsoft.Xaml.Interactions.Core"
+      x:Class="UsrWin.Test.MainPage"
+      mc:Ignorable="d"
+      DataContext="{Binding Main, Source={StaticResource Locator}}">
+    <Page.Resources>
+        <DataTemplate x:Key="DataTemplate1">
+            <Grid d:DesignWidth="804" d:DesignHeight="81">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="105*"/>
+                    <ColumnDefinition Width="163*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="43*"/>
+                    <RowDefinition Height="38*"/>
+                </Grid.RowDefinitions>
+                <TextBlock x:Name="textBlock" TextWrapping="Wrap" Text="{Binding Title}" d:LayoutOverrides="Height"/>
+                <TextBlock x:Name="textBlock1" Grid.Column="1" TextWrapping="Wrap" Text="{Binding BoardType}" d:LayoutOverrides="Height"/>
+                <TextBlock x:Name="textBlock2" Grid.Row="1" TextWrapping="Wrap" Text="TextBlock" d:LayoutOverrides="Width, Height, TopPosition, BottomPosition"/>
+            </Grid>
+        </DataTemplate>
+    </Page.Resources>
+
+    <Grid Background="White">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="59*"/>
+            <RowDefinition Height="121*"/>
+        </Grid.RowDefinitions>
+        <Button x:Name="button" Content="Scan" HorizontalAlignment="Left" Margin="58,75,0,0" VerticalAlignment="Top" Height="82" Width="203" Command="{Binding StartScan, Mode=OneWay}"/>
+        <ListView x:Name="listView" Grid.Row="1" ItemsSource="{Binding Devices}" ItemTemplate="{StaticResource DataTemplate1}"/>
+    </Grid>
+</Page>

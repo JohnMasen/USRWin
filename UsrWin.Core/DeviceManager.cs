@@ -14,14 +14,11 @@ namespace UsrWin.Core
         
         Windows.Networking.Sockets.DatagramSocket udpSocket ;
         private byte[] dicoverDeviceCommand = new byte[] { 0xFF, 0x01, 0x01, 0x02 };
-        TaskScheduler uiScheduler;
-        public ObservableCollection<IDevice> Devices { get; private set; }
+        public event EventHandler<IDevice> DeviceFound;
         public DeviceManager()
         {
-            Devices = new ObservableCollection<IDevice>();
             udpSocket = new Windows.Networking.Sockets.DatagramSocket();
             udpSocket.MessageReceived += udpReceived;
-            uiScheduler = System.Threading.Tasks.TaskScheduler.FromCurrentSynchronizationContext();
         }
         public async Task Init()
         {
@@ -49,7 +46,7 @@ namespace UsrWin.Core
             
         }
 
-        private async void udpReceived(Windows.Networking.Sockets.DatagramSocket sender, Windows.Networking.Sockets.DatagramSocketMessageReceivedEventArgs args)
+        private void udpReceived(Windows.Networking.Sockets.DatagramSocket sender, Windows.Networking.Sockets.DatagramSocketMessageReceivedEventArgs args)
         {
             
             byte[] buffer = new byte[36];
@@ -66,18 +63,10 @@ namespace UsrWin.Core
             }
             
             var device = createDeviceFromData(buffer);
-            
-            if (!Devices.Contains(device))
-            {
-                await Task.Factory.StartNew
-                    (
-                    () =>
-                    {
-                        Devices.Add(device);
-                    }
-                    , Task.Factory.CancellationToken, TaskCreationOptions.None, uiScheduler);
 
-                
+            if (DeviceFound!=null)
+            {
+                DeviceFound(this, device);
             }
         }
 

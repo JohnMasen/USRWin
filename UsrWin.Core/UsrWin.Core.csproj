@@ -43,6 +43,7 @@
     <Compile Include="DeviceFeature.cs" />
     <Compile Include="DeviceFirmwareVersion.cs" />
     <Compile Include="DeviceManager.cs" />
+    <Compile Include="DeviceTCPHelper.cs" />
     <Compile Include="DeviceTypeEnum.cs" />
     <Compile Include="IDevice.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
