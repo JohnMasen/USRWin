@@ -19,7 +19,7 @@
                     <RowDefinition Height="38*"/>
                 </Grid.RowDefinitions>
                 <TextBlock x:Name="textBlock" TextWrapping="Wrap" Text="{Binding Title}" d:LayoutOverrides="Height"/>
-                <TextBlock x:Name="textBlock1" Grid.Column="1" TextWrapping="Wrap" Text="{Binding BoardType}" d:LayoutOverrides="Height"/>
+                <TextBlock x:Name="textBlock1" Grid.Column="1" TextWrapping="Wrap" Text="{Binding IPAddress}" d:LayoutOverrides="Height"/>
                 <TextBlock x:Name="textBlock2" Grid.Row="1" TextWrapping="Wrap" Text="TextBlock" d:LayoutOverrides="Width, Height, TopPosition, BottomPosition"/>
             </Grid>
         </DataTemplate>

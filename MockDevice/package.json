@@ -1,0 +1,10 @@
+{
+  "name": "MockDevice",
+  "version": "0.0.0",
+  "description": "MockDevice",
+  "main": "app.js",
+  "author": {
+    "name": "qian.fan.jiang",
+    "email": ""
+  }
+}

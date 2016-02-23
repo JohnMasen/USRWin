@@ -1,0 +1,19 @@
+﻿<Page xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
+      xmlns:core="using:Microsoft.Xaml.Interactions.Core"
+      x:Class="UsrWin.UI.Win10.MainPage"
+      mc:Ignorable="d"
+      DataContext="{Binding Main, Source={StaticResource Locator}}">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="13*"/>
+            <RowDefinition Height="47*"/>
+        </Grid.RowDefinitions>
+        <Button x:Name="button" Content="Scan" Margin="95,34,0,63" VerticalAlignment="Stretch" Width="100" d:LayoutOverrides="TopPosition, BottomPosition" Command="{Binding Scan, Mode=OneWay}"/>
+        <ListView x:Name="lstDevices" Grid.Row="1" ItemsSource="{Binding Devices}"/>
+    </Grid>
+</Page>

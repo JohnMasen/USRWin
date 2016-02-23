@@ -20,10 +20,7 @@ namespace UsrWin.Core
             udpSocket = new Windows.Networking.Sockets.DatagramSocket();
             udpSocket.MessageReceived += udpReceived;
         }
-        public async Task Init()
-        {
-            //await udpSocket.BindServiceNameAsync("1919");
-        }
+       
         public async Task Scan()
         {
             
@@ -75,11 +72,19 @@ namespace UsrWin.Core
             Device d = new Device();
             d.BoardType = (DeviceTypeEnum)data[3];
             d.Feature = new DeviceFeature(data[4]);
-            Array.Copy(data, 5, d.IPAddress, 0, 4);
+
+            StringBuilder sb = new StringBuilder();
+            for (int i = 5; i < 9; i++)
+            {
+                sb.AppendFormat("{0:d}", data[i]);
+                sb.Append(".");
+            }
+            sb.Length--;
+            d.IPAddress = sb.ToString();
+
             Array.Copy(data, 9, d.MAC, 0, 6);
             d.Title = Encoding.UTF8.GetString(data, 19, 16).Replace("\0", string.Empty);
             return d;
-
         }
     }
 }

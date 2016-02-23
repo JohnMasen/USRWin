@@ -1,51 +1,61 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 using UsrWin.Core.Command;
 
 namespace UsrWin.Core
 {
+    [DataContract]
     public class Device : IDevice,IEquatable<Device>
     {
+        [DataMember]
         public DeviceTypeEnum BoardType { get; set; }
+        [DataMember]
         public DeviceFeature Feature { get; set; }
-        private byte[] ip;
-
-        public byte[] IPAddress
+        private string ip;
+        [DataMember]
+        public string IPAddress
         {
             get { return ip; }
             set
             {
                 ip = value;
-                Host = new Windows.Networking.HostName(IPAddress.ToString().Replace("-", "."));
             }
         }
-
+        [DataMember]
         public byte[] MAC { get; set; }
-
+        [DataMember]
         public string Title { get; set; }
-
+        [DataMember]
+        public string Password { get; set; }
         public DeviceTCPHelper helper { get; set; }
-        public Windows.Networking.HostName Host { get; private set; }
+        public Windows.Networking.HostName Host { get
+            {
+                
+                return new Windows.Networking.HostName(IPAddress);
+            }
+        }
 
         public Device()
         {
-            IPAddress = new byte[4];
+            IPAddress = string.Empty;
             MAC = new byte[6];
             helper = new DeviceTCPHelper();
+            Password = "admin";
         }
 
 
 
-        public async Task ExecuteCommand(Command.Commands cmd, byte[] parameter,Action<byte[]> resultAction)
+        public async Task ExecuteCommand(IDeviceCommand command)
         {
-            var result = await helper.SendCommand(this.Host, (byte)cmd, parameter);
-            if (resultAction!=null)
-            {
-                resultAction(result);
-            }
+             await helper.SendCommands(this.Host, new List<IDeviceCommand>(1) { command },Password);
+        }
+        public async Task ExecuteCommand(List<IDeviceCommand> command)
+        {
+            await helper.SendCommands(this.Host, command, Password);
         }
 
         public bool Equals(Device other)
@@ -64,6 +74,11 @@ namespace UsrWin.Core
                 return base.Equals(obj);
             }
             
+        }
+
+        public override int GetHashCode()
+        {
+            return MAC.GetHashCode();
         }
 
     }
