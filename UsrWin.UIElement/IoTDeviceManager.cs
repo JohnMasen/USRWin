@@ -11,12 +11,13 @@ namespace UsrWin.UIElement
     {
         DeviceManager dm;
         public System.Collections.ObjectModel.ObservableCollection<IoTDevice> Devices { get; private set; }
-
+        System.Threading.Tasks.TaskScheduler UIScheduler;
         public IoTDeviceManager()
         {
             dm = new DeviceManager();
             dm.DeviceFound += Dm_DeviceFound;
             Devices = new System.Collections.ObjectModel.ObservableCollection<IoTDevice>();
+            UIScheduler = TaskScheduler.FromCurrentSynchronizationContext();
         }
 
         private async void Dm_DeviceFound(object sender, IDevice e)
@@ -27,7 +28,12 @@ namespace UsrWin.UIElement
                 try
                 {
                     await tmp.RefreshResource();
-                    Devices.Add(tmp);
+                    await Task.Factory.StartNew(() =>
+                     {
+                         Devices.Add(tmp);
+                     }, Task.Factory.CancellationToken, TaskCreationOptions.None, UIScheduler);
+
+
                 }
                 catch (Exception ex)
                 {

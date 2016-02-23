@@ -17,7 +17,7 @@ namespace UsrWin.UIElement
         {
             DCGetOutputStatus cmd = new DCGetOutputStatus();
             await Parent.OriginalDevice.ExecuteCommand(cmd);
-            Status = cmd.Result[ID];
+            Status = cmd.Result[ID-1];
         }
 
         /// <summary>
@@ -71,7 +71,7 @@ namespace UsrWin.UIElement
             DCGetOutputStatus s = new DCGetOutputStatus();
             commands.Add(s);
             await Parent.OriginalDevice.ExecuteCommand(commands);
-            Status = s.Result[ID];
+            Status = s.Result[ID-1];
         }
     }
 }

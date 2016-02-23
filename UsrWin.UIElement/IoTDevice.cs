@@ -105,6 +105,9 @@ namespace UsrWin.UIElement
         {
             this.OriginalDevice = source;
             OutputResources = new List<IotDeviceOutputResource>();
+            Title = source.Title;
+            IPAddress = source.IPAddress;
+            MAC = source.MAC;
         }
 
         public async Task RefreshResource()
@@ -113,7 +116,7 @@ namespace UsrWin.UIElement
             await OriginalDevice.ExecuteCommand(cmd);
             for (int i = 0; i < cmd.Result.Output; i++)
             {
-                IotDeviceOutputResource tmp = new IotDeviceOutputResource(this, i);
+                IotDeviceOutputResource tmp = new IotDeviceOutputResource(this, i+1);
                 await tmp.RefreshStatus();
                 OutputResources.Add(tmp);
             }

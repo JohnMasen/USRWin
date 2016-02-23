@@ -11,7 +11,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UsrWin.UIElement", "UsrWin.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UsrWin.UI.Win10", "UsrWin.UI.Win10\UsrWin.UI.Win10.csproj", "{8C19691C-45AF-4AF3-ACE5-69772F8BE205}"
 EndProject
-Project("{9092AA53-FB77-4645-B42D-1CCCA6BD08BD}") = "MockDevice", "MockDevice\MockDevice.njsproj", "{CE7B9158-24B4-4FB8-810B-3E361CD3BC95}"
+Project("{9092AA53-FB77-4645-B42D-1CCCA6BD08BD}") = "MockupDevice", "MockDevice\MockupDevice.njsproj", "{CE7B9158-24B4-4FB8-810B-3E361CD3BC95}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

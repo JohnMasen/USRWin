@@ -71,7 +71,7 @@ namespace UsrWin.Core.Command
             return BitConverter.GetBytes(tmpSum)[0];
         }
 
-        private byte[] parseResult(byte[] data, byte command)
+        protected byte[] parseResult(byte[] data)
         {
             if (data.SequenceEqual(new byte[] { 0x7f, 0x7f }))
             {
@@ -97,15 +97,17 @@ namespace UsrWin.Core.Command
             }
 
             byte[] tmp = new byte[4];
-            Array.Copy(data, 2, tmp, 2, 2);
+            tmp[0] = data[3];
+            tmp[1] = data[2];
+            //Array.Copy(data, 2, tmp, 2, 2);
             int length = BitConverter.ToInt32(tmp, 0);
-            if (length != data.Length - 3)
+            if (length != data.Length - 5)
             {
                 throw new InvalidOperationException("invalid result, data length does not match payload length");
             }
 
             byte resultCmd = data[5];
-            if (resultCmd != command + 0x80)
+            if (resultCmd != cmd + 0x80)
             {
                 throw new InvalidOperationException("invalid result, command not matching");
             }

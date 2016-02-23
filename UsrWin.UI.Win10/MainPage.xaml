@@ -7,6 +7,34 @@
       x:Class="UsrWin.UI.Win10.MainPage"
       mc:Ignorable="d"
       DataContext="{Binding Main, Source={StaticResource Locator}}">
+    <Page.Resources>
+        <DataTemplate x:Key="DataTemplate2">
+            <Grid d:DesignWidth="643.527" d:DesignHeight="61.487">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="54*"/>
+                    <ColumnDefinition Width="71*"/>
+                    <ColumnDefinition Width="197*"/>
+                </Grid.ColumnDefinitions>
+                <Button x:Name="button" Content="Reverse" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" Width="200" Command="{Binding Reverse, Mode=OneWay}" Margin="97,15,97,14" Height="32"/>
+                <TextBlock x:Name="textBlock" TextWrapping="Wrap" Text="{Binding ID, Mode=OneWay}"/>
+                <ToggleSwitch Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Stretch" IsOn="{Binding Status}" />
+            </Grid>
+        </DataTemplate>
+        <DataTemplate x:Key="DataTemplate1">
+            <Grid d:DesignWidth="738.093" d:DesignHeight="189.609">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="53*"/>
+                    <RowDefinition Height="137*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="109*"/>
+                    <ColumnDefinition Width="260*"/>
+                </Grid.ColumnDefinitions>
+                <TextBlock x:Name="textBlock" TextWrapping="Wrap" Text="{Binding Title}"/>
+                <ListView x:Name="listView" Grid.ColumnSpan="2" Grid.Row="1" ItemsSource="{Binding OutputResources}" ItemTemplate="{StaticResource DataTemplate2}"/>
+            </Grid>
+        </DataTemplate>
+    </Page.Resources>
 
     <Grid>
         <Grid.RowDefinitions>
@@ -14,6 +42,6 @@
             <RowDefinition Height="47*"/>
         </Grid.RowDefinitions>
         <Button x:Name="button" Content="Scan" Margin="95,34,0,63" VerticalAlignment="Stretch" Width="100" d:LayoutOverrides="TopPosition, BottomPosition" Command="{Binding Scan, Mode=OneWay}"/>
-        <ListView x:Name="lstDevices" Grid.Row="1" ItemsSource="{Binding Devices}"/>
+        <ListView x:Name="lstDevices" Grid.Row="1" ItemsSource="{Binding Devices}" ItemTemplate="{StaticResource DataTemplate1}"/>
     </Grid>
 </Page>

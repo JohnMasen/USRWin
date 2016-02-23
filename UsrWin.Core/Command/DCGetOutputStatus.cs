@@ -16,12 +16,12 @@ namespace UsrWin.Core.Command
         protected override List<bool> processResult(byte[] result)
         {
             List<bool> r = new List<bool>();
-            byte mask = 0x80;
+            byte mask = 0x01;
             foreach (var b in result)
             {
                 for (int i = 0; i < 8; i++)
                 {
-                    r.Add(!((mask >> i & b) == 0)) ;
+                    r.Add(!((mask << i & b) == 0)) ;
                 }
             }
             return r;
