@@ -1,0 +1,70 @@
+﻿<Page xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+      xmlns:ignore="http://www.galasoft.ch/ignore"
+      xmlns:interactivity="using:Microsoft.Xaml.Interactivity"
+      xmlns:core="using:Microsoft.Xaml.Interactions.Core"
+      x:Class="UsrWin.UI.WP81.MainPage"
+      mc:Ignorable="d ignore"
+      Background="{ThemeResource ApplicationPageBackgroundThemeBrush}"
+      DataContext="{Binding Main, Source={StaticResource Locator}}">
+
+    <Page.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="Styles/MainStyles.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+
+            <Style x:Key="ActionTextBlockStyle"
+                   TargetType="TextBlock"
+                   BasedOn="{StaticResource MainTextBlockStyle}">
+                <Setter Property="FontWeight"
+                        Value="Bold" />
+            </Style>
+            <DataTemplate x:Key="DataTemplate2">
+                <Grid d:DesignWidth="415.218" d:DesignHeight="59.854">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="24*"/>
+                        <ColumnDefinition Width="59*"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock x:Name="textBlock" TextWrapping="Wrap" Text="{Binding ID, Mode=OneWay}"/>
+                    <ToggleButton x:Name="toggleButton" Content="Reverse" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Command="{Binding Reverse, Mode=OneWay}" IsChecked="{Binding Status, Mode=OneWay}"/>
+                </Grid>
+            </DataTemplate>
+            <DataTemplate x:Key="DataTemplate1">
+                <Grid d:DesignWidth="417.139" d:DesignHeight="131.136">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="76*"/>
+                        <RowDefinition Height="55*"/>
+                    </Grid.RowDefinitions>
+                    <TextBlock x:Name="textBlock" TextWrapping="Wrap" Text="{Binding Title}"/>
+                    <ItemsControl Grid.Row="1" ItemsSource="{Binding OutputResources}" ItemTemplate="{StaticResource DataTemplate2}"/>
+                </Grid>
+            </DataTemplate>
+        </ResourceDictionary>
+    </Page.Resources>
+    <Page.BottomAppBar>
+        <CommandBar>
+            <AppBarButton Icon="Refresh" Label="Refresh" Command="{Binding Scan, Mode=OneWay}"/>
+        </CommandBar>
+    </Page.BottomAppBar>
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition />
+        </Grid.RowDefinitions>
+
+        <StackPanel x:Name="TitlePanel"
+                    Margin="12,17,0,28">
+            <TextBlock Text="USR Device Manager"
+                       Margin="12,0"
+                       Style="{StaticResource PhoneTextNormalStyle}" />
+            <TextBlock Text="My Devices"
+                       Margin="9,-7,0,0"
+                       Style="{StaticResource PhoneTextTitle1Style}" />
+        </StackPanel>
+        <ItemsControl Grid.Row="1" ItemsSource="{Binding Devices}" ItemTemplate="{StaticResource DataTemplate1}"/>
+    </Grid>
+</Page>

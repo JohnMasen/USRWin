@@ -66,12 +66,11 @@ namespace UsrWin.UIElement
 
         private async void ExecuteRevert()
         {
-            List<UsrWin.Core.Command.IDeviceCommand> commands = new List<IDeviceCommand>(2);
-            commands.Add(new DCSetOutputReverse(Convert.ToByte(ID)));
-            DCGetOutputStatus s = new DCGetOutputStatus();
-            commands.Add(s);
-            await Parent.OriginalDevice.ExecuteCommand(commands);
-            Status = s.Result[ID-1];
+            
+            DCSetOutputReverse cmd= new DCSetOutputReverse(Convert.ToByte(ID));
+
+            await Parent.OriginalDevice.ExecuteCommand(cmd);
+            Status = cmd.Result;
         }
     }
 }
