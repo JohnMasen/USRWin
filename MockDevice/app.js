@@ -12,6 +12,7 @@ var tcpResourceResult = new Buffer([0xAA, 0x55, 0x0, 0x3, 0x0, 0x8A, 0x0, 0x8D])
 var tcpResource1Reverse = new Buffer([0x55, 0xAA, 0x00, 0x03, 0x00, 0x03, 0x01, 0x07]);
 var tcpResource1ON = new Buffer([0xAA, 0x55, 0x00, 0x04, 0x00, 0x83, 0x01, 0x01, 0x89]);
 var tcpResource1OFF = new Buffer([0xAA, 0x55, 0x00, 0x04, 0x00, 0x83, 0x01, 0x00, 0x88]);
+var tcpInternalError = new Buffer([0x0, 0x0]);
 var isResource1On = false;
 
 udpServer.on('listening', function(){
@@ -41,7 +42,7 @@ udpServer.bind(1901);
 var tcpServer = net.createServer(function (socket) {
     console.log('CONNECTED: ' + socket.remoteAddress + ':' + socket.remotePort);
     socket.on('data', function (data) {
-        var response;
+        var response = tcpInternalError;
         console.log("TCP Received:", data);
         if (data.compare(tcpLogin)==0) {
             response = "OK";

@@ -22,7 +22,7 @@ namespace UsrWin.UIElement
 
         private async void Dm_DeviceFound(object sender, IDevice e)
         {
-            if (Devices.FirstOrDefault((x)=>x.MAC==e.MAC)==null)
+            if (Devices.FirstOrDefault((x)=>x.MAC.SequenceEqual(e.MAC))==null)
             {
                 IoTDevice tmp = new IoTDevice(e);
                 try
