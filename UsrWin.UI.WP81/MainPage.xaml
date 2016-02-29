@@ -32,6 +32,17 @@
                     <ToggleButton x:Name="toggleButton" Content="Reverse" Grid.Column="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Command="{Binding Reverse, Mode=OneWay}" IsChecked="{Binding Status, Mode=OneWay}"/>
                 </Grid>
             </DataTemplate>
+            <DataTemplate x:Key="DataTemplate3">
+                <Grid>
+                    <ToggleSwitch x:Name="toggleSwitch" Header="{Binding ID, Mode=OneWay}" VerticalAlignment="Stretch" d:LayoutOverrides="Width, Height" IsOn="{Binding Status}">
+                        <interactivity:Interaction.Behaviors>
+                            <core:EventTriggerBehavior EventName="Toggled">
+                                <core:InvokeCommandAction Command="{Binding Reverse, Mode=OneWay}"/>
+                            </core:EventTriggerBehavior>
+                        </interactivity:Interaction.Behaviors>
+                    </ToggleSwitch>
+                </Grid>
+            </DataTemplate>
             <DataTemplate x:Key="DataTemplate1">
                 <Grid d:DesignWidth="417.139" d:DesignHeight="131.136">
                     <Grid.RowDefinitions>
@@ -39,7 +50,7 @@
                         <RowDefinition Height="55*"/>
                     </Grid.RowDefinitions>
                     <TextBlock x:Name="textBlock" TextWrapping="Wrap" Text="{Binding Title}"/>
-                    <ItemsControl Grid.Row="1" ItemsSource="{Binding OutputResources}" ItemTemplate="{StaticResource DataTemplate2}"/>
+                    <ItemsControl Grid.Row="1" ItemsSource="{Binding OutputResources}" ItemTemplate="{StaticResource DataTemplate3}"/>
                 </Grid>
             </DataTemplate>
         </ResourceDictionary>

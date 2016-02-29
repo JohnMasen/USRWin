@@ -41,6 +41,8 @@
   <ItemGroup>
     <Compile Include="Command\DCGetOutputStatus.cs" />
     <Compile Include="Command\DCGetResource.cs" />
+    <Compile Include="Command\DCSetOutputOff.cs" />
+    <Compile Include="Command\DCSetOutputOn.cs" />
     <Compile Include="Command\DCSetOutputReverse.cs" />
     <Compile Include="Command\DeviceCommandBase.cs" />
     <Compile Include="Command\DeviceCommandWithResult.cs" />

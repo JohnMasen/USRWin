@@ -72,5 +72,34 @@ namespace UsrWin.UIElement
             await Parent.OriginalDevice.ExecuteCommand(cmd);
             Status = cmd.Result;
         }
+
+        private RelayCommand<bool> _SetStatus;
+
+        /// <summary>
+        /// Gets the SetStatus.
+        /// </summary>
+        public RelayCommand<bool> SetStatus
+        {
+            get
+            {
+                return _SetStatus
+                    ?? (_SetStatus = new RelayCommand<bool>( async
+                    p =>
+                    {
+                        SimpleDeviceCommandBase cmd;
+                        if (p)
+                        {
+                            //current is on, create turn off command
+                            cmd = new DCSetOutputOff();
+                        }
+                        else
+                        {
+                            cmd = new DCSetOutputOn();
+                        }
+                        await Parent.OriginalDevice.ExecuteCommand(cmd);
+                        this.Status = !this.Status;
+                    }));
+            }
+        }
     }
 }

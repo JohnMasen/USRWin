@@ -19,6 +19,17 @@
                 <ToggleButton x:Name="toggleButton" Content="Reverse" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" IsChecked="{Binding Status, Mode=TwoWay}" Command="{Binding Reverse, Mode=OneWay}"/>
             </Grid>
         </DataTemplate>
+        <DataTemplate x:Key="DataTemplate3">
+            <Grid>
+                <ToggleSwitch x:Name="toggleSwitch" Header="{Binding ID, Mode=OneWay}" HorizontalAlignment="Left" VerticalAlignment="Top" IsOn="{Binding Status}">
+                    <interactivity:Interaction.Behaviors>
+                        <core:EventTriggerBehavior EventName="Toggled">
+                            <core:InvokeCommandAction Command="{Binding Reverse, Mode=OneWay}"/>
+                        </core:EventTriggerBehavior>
+                    </interactivity:Interaction.Behaviors>
+                </ToggleSwitch>
+            </Grid>
+        </DataTemplate>
         <DataTemplate x:Key="DataTemplate1">
             <Grid d:DesignWidth="738.093" d:DesignHeight="189.609">
                 <Grid.RowDefinitions>
@@ -30,7 +41,7 @@
                     <ColumnDefinition Width="260*"/>
                 </Grid.ColumnDefinitions>
                 <TextBlock x:Name="textBlock" TextWrapping="Wrap" Text="{Binding Title}"/>
-                <ItemsControl x:Name="listView" Grid.ColumnSpan="2" Grid.Row="1" ItemsSource="{Binding OutputResources}" ItemTemplate="{StaticResource DataTemplate2}"/>
+                <ItemsControl x:Name="listView" Grid.ColumnSpan="2" Grid.Row="1" ItemsSource="{Binding OutputResources}" ItemTemplate="{StaticResource DataTemplate3}"/>
             </Grid>
         </DataTemplate>
     </Page.Resources>
