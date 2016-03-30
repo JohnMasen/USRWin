@@ -19,6 +19,7 @@
                 <ToggleButton x:Name="toggleButton" Content="Reverse" Grid.Column="2" HorizontalAlignment="Center" VerticalAlignment="Center" IsChecked="{Binding Status, Mode=TwoWay}" Command="{Binding Reverse, Mode=OneWay}"/>
             </Grid>
         </DataTemplate>
+        
         <DataTemplate x:Key="DataTemplate3">
             <Grid>
                 <ToggleSwitch x:Name="toggleSwitch" Header="{Binding ID, Mode=OneWay}" HorizontalAlignment="Left" VerticalAlignment="Top" IsOn="{Binding Status}">
@@ -46,12 +47,12 @@
         </DataTemplate>
     </Page.Resources>
 
-    <Grid Background="White">
+    <Grid Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
         <Grid.RowDefinitions>
             <RowDefinition Height="13*"/>
             <RowDefinition Height="47*"/>
         </Grid.RowDefinitions>
-        <Button x:Name="button" Content="Scan" Margin="95,34,0,63" VerticalAlignment="Stretch" Width="100" d:LayoutOverrides="TopPosition, BottomPosition" Command="{Binding Scan, Mode=OneWay}"/>
+        <Button x:Name="button" Content="Scan" Margin="95,34,0,63" VerticalAlignment="Stretch" Width="100" d:LayoutOverrides="TopPosition, BottomPosition" Command="{Binding Scan, Mode=OneWay}" />
         <ItemsControl x:Name="lstDevices" Grid.Row="1" ItemsSource="{Binding Devices}" ItemTemplate="{StaticResource DataTemplate1}"/>
     </Grid>
 </Page>
