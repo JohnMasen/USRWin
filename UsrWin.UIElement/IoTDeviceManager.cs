@@ -22,24 +22,31 @@ namespace UsrWin.UIElement
 
         private async void Dm_DeviceFound(object sender, IDevice e)
         {
-            if (Devices.FirstOrDefault((x)=>x.MAC.SequenceEqual(e.MAC))==null)
+            IoTDevice tmp = Devices.FirstOrDefault((x) => x.MAC.SequenceEqual(e.MAC));
+            if (tmp!=null)
             {
-                IoTDevice tmp = new IoTDevice(e);
-                try
+                await Task.Factory.StartNew(() =>
                 {
-                    await tmp.RefreshResource();
-                    await Task.Factory.StartNew(() =>
-                     {
-                         Devices.Add(tmp);
-                     }, Task.Factory.CancellationToken, TaskCreationOptions.None, UIScheduler);
-
-
-                }
-                catch (Exception ex)
-                {
-                    System.Diagnostics.Debug.WriteLine(ex.ToString());
-                }
+                    Devices.Remove(tmp);//remove existing device to refresh
+                }, Task.Factory.CancellationToken, TaskCreationOptions.None, UIScheduler);
+                
             }
+            tmp = new IoTDevice(e);
+            try
+            {
+                await tmp.RefreshResource();
+                await Task.Factory.StartNew(() =>
+                    {
+                        Devices.Add(tmp);
+                    }, Task.Factory.CancellationToken, TaskCreationOptions.None, UIScheduler);
+
+
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine(ex.ToString());
+            }
+            
         }
 
         private RelayCommand _scanDeviceCmd;
